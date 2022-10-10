@@ -72,3 +72,7 @@ body {
 .borderRight {
     border-right: 4px solid black;
 }
+
+.selected {
+    background-color: lightblue;
+}
