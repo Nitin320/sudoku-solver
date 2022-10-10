@@ -1,18 +1,17 @@
 
 const board = [
-    [7, 8, 0, 4, 0, 0, 1, 2, 0],
-    [6, 0, 0, 0, 7, 5, 0, 0, 9],
-    [0, 0, 0, 6, 0, 1, 0, 7, 8],
-    [0, 0, 7, 0, 4, 0, 2, 6, 0],
-    [0, 0, 1, 0, 5, 0, 9, 3, 0],
-    [9, 0, 4, 0, 6, 0, 0, 0, 5],
-    [0, 7, 0, 3, 0, 0, 0, 1, 2],
-    [1, 2, 0, 0, 0, 7, 4, 0, 0],
-    [0, 4, 9, 2, 0, 6, 0, 0, 7],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 
-var squareSelected;
-var canSelect;
+var numToAdd;
 
 window.onload = function () {
 
@@ -21,19 +20,25 @@ window.onload = function () {
     for(let i=0; i<9; i++){
         funcId("numbers").children[i].addEventListener("click", function () {
             
-                if(this.classList.contains("selected")) {
-                    this.classList.remove("selected");
+            if(this.classList.contains("selected")) {
+
+                this.classList.remove("selected");
+            }
+            else {
+
+                for(let i=0; i<9; i++) {
+                    funcId("numbers").children[i].classList.remove("selected");
                 }
-                else {
-                    for(let i=0; i<9; i++) {
-                        funcId("numbers").children[i].classList.remove("selected");
-                    }
-                    this.classList.add("selected")
-                }
-            
+
+                this.classList.add("selected")
+                numToAdd = funcId("numbers").children[i].innerHTML;
+
+            }    
         });
     }
+
 }
+
 
 
 function start () {
@@ -51,9 +56,14 @@ function makeBoard () {
     let id = 0;
 
     for(let i=0; i<81; i++){
+
+        const idnum = String(i);
+
         let square = document.createElement("p");
-        square.textContent = '1';
+        square.textContent = '';
         square.classList.add("square");
+        square.id = idnum
+
 
         if((id>17 && id<27) || (id>44 && id<54)) {
             square.classList.add("borderBottom");
@@ -66,6 +76,12 @@ function makeBoard () {
         id++;
 
         funcId("board").appendChild(square);
+
+        funcId("board").children[i].addEventListener("click", function () {
+
+            funcId("board").children[i].innerHTML = numToAdd;
+
+        });
         
     }
     
