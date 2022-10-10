@@ -31,6 +31,7 @@ body {
 
 .numbers {
     padding-top: 5vh;
+    display: none;
 }
 
 .numbers > p {
@@ -41,7 +42,7 @@ body {
     height: 3vw;
     font-size: 4vh;
     border-radius: 20%;
-    margin: 5px 0px 5px 50px;
+    margin: 10px 0px 5px 50px;
     text-align: center;
 }
 
