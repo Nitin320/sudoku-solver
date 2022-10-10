@@ -1,5 +1,5 @@
 
-const board = [
+/*const board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -9,8 +9,20 @@ const board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
-];
+];*/
 
+var board = [
+    [7, 8, 0, 4, 0, 0, 1, 2, 0],
+    [6, 0, 0, 0, 7, 5, 0, 0, 9],
+    [0, 0, 0, 6, 0, 1, 0, 7, 8],
+    [0, 0, 7, 0, 4, 0, 2, 6, 0],
+    [0, 0, 1, 0, 5, 0, 9, 3, 0],
+    [9, 0, 4, 0, 6, 0, 0, 0, 5],
+    [0, 7, 0, 3, 0, 0, 0, 1, 2],
+    [1, 2, 0, 0, 0, 7, 4, 0, 0],
+    [0, 4, 9, 2, 0, 6, 0, 0, 7],
+];
+/*
 var numToAdd;
 
 window.onload = function () {
@@ -45,7 +57,7 @@ function start () {
     canSelect = false;
     startsolver.style.display = 'none';
     numbers.style.display = 'block';
-    body.style.overflowY = 'auto';
+    body.style.overflowY = 'scroll';
     makeBoard();
 }
 
@@ -95,6 +107,9 @@ function makeBoard () {
         });
         
     }
+
+    solve(board);
+    console.log(board);
     
 }
 
@@ -112,4 +127,76 @@ function clearOldBoard () {
 function funcId(id) {
     return document.getElementById(id);
 }
+*/
 
+// MAIN SUDOKU SOLVER
+
+
+function solve (board) {
+    
+    const empty = findEmptySpace();
+
+    if(!empty) {
+        return true;
+    }
+
+    for(let i=1; i<10; i++) {
+        if(checkDuplicates(board, i, empty)) {
+
+            board[empty[0]][empty[1]] = i;
+
+            if(solve(board)) {
+                return true;
+            }
+
+            board[empty[0]][empty[1]] = 0;
+        }
+    }
+    return false;
+
+}
+
+
+function checkDuplicates (board, num, empty) {
+
+    for(let i=0; i<9; i++) {
+        if(board[empty[0]][i] == num && empty[1] != i) {
+            return false;
+        }
+    }
+
+    for(let i=0; i<9; i++) {
+        if(board[i][empty[1]] == num && empty[0] != i) {
+            return false;
+        }
+    }
+
+    const x = Math.floor(empty[0]/3);
+    const y = Math.floor(empty[1]/3);
+
+    for(let i=(y*3); (y*3)+1; i++) {
+        for(let j=(x*3); (x*3)+1; j++) {
+            if(board[i][j] == num && [i, j] != empty) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+
+}
+
+
+function findEmptySpace () {
+
+    for(let i=0; i<9; i++) {
+        for(let j=0; j<9; j++) {
+            if(board[i][j] == 0) {
+                return [i, j];
+            }
+        }
+    }
+}
+console.log(board);
+solve(board);
+console.log(board);

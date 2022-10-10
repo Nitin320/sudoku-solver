@@ -12,6 +12,7 @@ board = [
 ]
 
 
+
 def solve(board):
     
     empty = find_emptySpace()
@@ -67,7 +68,7 @@ def check_duplicates(board, num, empty):
 
     for i in range(y*3, (y*3)+1):
         for j in range(x*3, (x*3)+1):
-            if board[i][j] == num and (i, j) != empty:
+            if board[i][j] == num and [i, j]!= empty:
                 return False
     
     return True
@@ -77,9 +78,9 @@ def find_emptySpace():
     for i in range(9):
         for j in range(9):
             if board[i][j] == 0:
-                return (i, j)
+                return [i, j]
 
     return None
 
-
+solve(board)
 print(display_board())
