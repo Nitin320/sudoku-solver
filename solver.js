@@ -81,6 +81,17 @@ function makeBoard () {
 
             funcId("board").children[i].innerHTML = numToAdd;
 
+            const numid = parseInt(funcId("board").children[i].id) + 1
+
+            if(numid%9 != 0) {
+                board[Math.floor(numid/9)][(numid%9)-1] = numToAdd;
+            }
+            else {
+                board[Math.floor((numid-1)/9)][8] = numToAdd;
+            }
+
+            console.log(board)
+
         });
         
     }
