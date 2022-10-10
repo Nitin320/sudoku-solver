@@ -8,6 +8,7 @@ body {
     display: flex;
     justify-content: center;
     text-align: center;
+    overflow-y: hidden;
 }
 
 .heading {
@@ -33,7 +34,7 @@ body {
 }
 
 .numbers > p {
-    padding-top: 2vh;
+    padding-top: 1vh;
     flex: 1;
     border: 2px solid black;
     width: 3vw;
