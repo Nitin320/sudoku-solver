@@ -12,6 +12,7 @@ const board = [
 ];
 
 var numToAdd;
+var allowed = true;
 
 window.onload = function () {
 
@@ -79,25 +80,24 @@ function makeBoard () {
 
         funcId("board").children[i].addEventListener("click", function () {
 
-            funcId("board").children[i].innerHTML = numToAdd;
+            if(allowed == true) {
+                funcId("board").children[i].innerHTML = numToAdd;
+            }
 
             const numid = parseInt(funcId("board").children[i].id) + 1
 
             if(numid%9 != 0) {
-                board[Math.floor(numid/9)][(numid%9)-1] = numToAdd;
+                board[Math.floor(numid/9)][(numid%9)-1] = parseInt(numToAdd);
             }
             else {
-                board[Math.floor((numid-1)/9)][8] = numToAdd;
+                board[Math.floor((numid-1)/9)][8] = parseInt(numToAdd);
             }
 
-            console.log(board)
+            funcId("solver").addEventListener("click", solve);
 
         });
         
     }
-
-    solve(board);
-    console.log(board);
     
 }
 
@@ -117,11 +117,16 @@ function funcId(id) {
 }
 
 
-// MAIN SUDOKU SOLVER
+
+// -------------------------------- MAIN SUDOKU SOLVER ----------------------------------------------
+
+var indexOfAnswer;
+var finalInd;
 
 
-function solve (board) {
-    
+function solve () {
+
+    allowed = false;
     var empty = findEmptySpace();
 
     if(!empty) {
@@ -129,17 +134,28 @@ function solve (board) {
     }
 
     for(let i=1; i<10; i++) {
+
         if(checkDuplicates(board, i, empty)) {
 
             board[empty[0]][empty[1]] = i;
+            finalInd = (empty[0]*9) + empty[1];
+
+            indexOfAnswer = i;
+
+            funcId("board").children[finalInd].innerHTML = i;
 
             if(solve(board)) {
                 return true;
             }
 
             board[empty[0]][empty[1]] = 0;
+
+            funcId("board").children[finalInd].innerHTML = 0;
         }
     }
+
+    console.log(board);
+    funcId("board").children[0].innerHTML = board[0][0];
     return false;
 
 }
@@ -186,5 +202,3 @@ function findEmptySpace () {
 
 }
 
-solve(board);
-console.log(board);
