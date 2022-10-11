@@ -50,6 +50,9 @@ function start () {
     makeBoard();
 }
 
+var index1;
+var index2;
+
 function makeBoard () {
 
     clearOldBoard();
@@ -80,17 +83,27 @@ function makeBoard () {
 
         funcId("board").children[i].addEventListener("click", function () {
 
-            if(allowed == true) {
-                funcId("board").children[i].innerHTML = numToAdd;
-            }
+            
 
             const numid = parseInt(funcId("board").children[i].id) + 1
 
             if(numid%9 != 0) {
-                board[Math.floor(numid/9)][(numid%9)-1] = parseInt(numToAdd);
+                index1 = Math.floor(numid/9);
+                index2 = (numid%9)-1;
             }
             else {
-                board[Math.floor((numid-1)/9)][8] = parseInt(numToAdd);
+                index1 = Math.floor((numid-1)/9);
+                index2 = 8;
+            }
+            
+            var finalIndexes = [index1, index2];
+
+            if(allowed == true && checkDuplicates(board, parseInt(numToAdd), finalIndexes) == true) {
+
+                funcId("board").children[i].innerHTML = numToAdd;
+
+                if(numid%9 != 0) {board[Math.floor(numid/9)][(numid%9)-1] = parseInt(numToAdd);}
+                else {board[Math.floor((numid-1)/9)][8] = parseInt(numToAdd);}
             }
 
             funcId("solver").addEventListener("click", solve);
@@ -164,12 +177,17 @@ function solve () {
 function checkDuplicates (board, num, empty) {
     for(let i=0; i<9; i++) {
         if(board[empty[0]][i] == num && empty[1] != i) {
+            console.log(1)
+            console.log(board)
+            console.log(empty[0], i, num)
             return false;
         }
     }
 
     for(let i=0; i<9; i++) {
         if(board[i][empty[1]] == num && empty[0] != i) {
+            console.log(2)
+            console.log(empty[1], i, num)
             return false;
         }
     }
@@ -179,7 +197,9 @@ function checkDuplicates (board, num, empty) {
 
     for(let i=(y*3); i<(y*3)+3; i++) {
         for(let j=(x*3); j<(x*3)+3; j++) {
-            if(board[i][j] == num && [i, j] != empty) {
+            if(board[i][j] == num && i != empty[0] && j != empty[1]) {
+                console.log(3)
+                console.log(i, j, num)
                 return false;
             }
         }
