@@ -1,5 +1,5 @@
 
-/*const board = [
+const board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -9,20 +9,8 @@
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
-];*/
-
-var board = [
-    [7, 8, 0, 4, 0, 0, 1, 2, 0],
-    [6, 0, 0, 0, 7, 5, 0, 0, 9],
-    [0, 0, 0, 6, 0, 1, 0, 7, 8],
-    [0, 0, 7, 0, 4, 0, 2, 6, 0],
-    [0, 0, 1, 0, 5, 0, 9, 3, 0],
-    [9, 0, 4, 0, 6, 0, 0, 0, 5],
-    [0, 7, 0, 3, 0, 0, 0, 1, 2],
-    [1, 2, 0, 0, 0, 7, 4, 0, 0],
-    [0, 4, 9, 2, 0, 6, 0, 0, 7],
 ];
-/*
+
 var numToAdd;
 
 window.onload = function () {
@@ -127,14 +115,14 @@ function clearOldBoard () {
 function funcId(id) {
     return document.getElementById(id);
 }
-*/
+
 
 // MAIN SUDOKU SOLVER
 
 
 function solve (board) {
     
-    const empty = findEmptySpace();
+    var empty = findEmptySpace();
 
     if(!empty) {
         return true;
@@ -158,7 +146,6 @@ function solve (board) {
 
 
 function checkDuplicates (board, num, empty) {
-
     for(let i=0; i<9; i++) {
         if(board[empty[0]][i] == num && empty[1] != i) {
             return false;
@@ -171,11 +158,11 @@ function checkDuplicates (board, num, empty) {
         }
     }
 
-    const x = Math.floor(empty[0]/3);
-    const y = Math.floor(empty[1]/3);
+    var x = Math.floor(empty[1]/3);
+    var y = Math.floor(empty[0]/3);
 
-    for(let i=(y*3); (y*3)+1; i++) {
-        for(let j=(x*3); (x*3)+1; j++) {
+    for(let i=(y*3); i<(y*3)+3; i++) {
+        for(let j=(x*3); j<(x*3)+3; j++) {
             if(board[i][j] == num && [i, j] != empty) {
                 return false;
             }
@@ -196,7 +183,8 @@ function findEmptySpace () {
             }
         }
     }
+
 }
-console.log(board);
+
 solve(board);
 console.log(board);
