@@ -1,5 +1,5 @@
 
-const board = [
+var board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -17,6 +17,7 @@ var allowed = true;
 window.onload = function () {
 
     funcId("startsolver").addEventListener("click", start);
+    funcId("newBoard").addEventListener("click", start);
 
     for(let i=0; i<9; i++){
         funcId("numbers").children[i].addEventListener("click", function () {
@@ -47,6 +48,7 @@ function start () {
     startsolver.style.display = 'none';
     numbers.style.display = 'block';
     body.style.overflowY = 'scroll';
+    heading.style.marginRight = '7vw';
     makeBoard();
 }
 
@@ -98,7 +100,7 @@ function makeBoard () {
             
             var finalIndexes = [index1, index2];
 
-            if(allowed == true && checkDuplicates(board, parseInt(numToAdd), finalIndexes) == true) {
+            if(allowed == true && checkDuplicates(board, parseInt(numToAdd), finalIndexes) == true && numToAdd != undefined) {
 
                 funcId("board").children[i].innerHTML = numToAdd;
 
@@ -117,12 +119,19 @@ function makeBoard () {
 function clearOldBoard () {
 
     let squares = document.querySelectorAll(".square");
-    selectedSquare = null;
-    selectedNum = null;
 
     for(let i=0; i<squares.length; i++) {
         squares[i].remove();
     }
+
+    allowed = true;
+    
+    for(let i=0; i<9; i++) {
+        for(let j=0; j<9; j++) {
+            board[i][j] = 0;
+        }
+    }
+
 }
 
 function funcId(id) {
@@ -155,7 +164,7 @@ function solve () {
 
             indexOfAnswer = i;
 
-            funcId("board").children[finalInd].innerHTML = i;
+            funcId("board").children[finalInd].innerHTML = i;  // NUMBERS ARE GETTING CHANGED IN THE BOARD FROM HERE
 
             if(solve(board)) {
                 return true;
@@ -163,11 +172,10 @@ function solve () {
 
             board[empty[0]][empty[1]] = 0;
 
-            funcId("board").children[finalInd].innerHTML = 0;
+            funcId("board").children[finalInd].innerHTML = 0;  // NUMBERS ARE GETTING CHANGED IN THE BOARD FROM HERE
         }
     }
 
-    console.log(board);
     funcId("board").children[0].innerHTML = board[0][0];
     return false;
 
@@ -177,17 +185,12 @@ function solve () {
 function checkDuplicates (board, num, empty) {
     for(let i=0; i<9; i++) {
         if(board[empty[0]][i] == num && empty[1] != i) {
-            console.log(1)
-            console.log(board)
-            console.log(empty[0], i, num)
             return false;
         }
     }
 
     for(let i=0; i<9; i++) {
         if(board[i][empty[1]] == num && empty[0] != i) {
-            console.log(2)
-            console.log(empty[1], i, num)
             return false;
         }
     }
@@ -198,8 +201,6 @@ function checkDuplicates (board, num, empty) {
     for(let i=(y*3); i<(y*3)+3; i++) {
         for(let j=(x*3); j<(x*3)+3; j++) {
             if(board[i][j] == num && i != empty[0] && j != empty[1]) {
-                console.log(3)
-                console.log(i, j, num)
                 return false;
             }
         }
