@@ -37,7 +37,10 @@ body {
     flex: 1;
     word-wrap: break-word;
     opacity: 0;
+}
 
+.warn1anim, .warn2anim, .warn3anim {
+    animation: animate 5s forwards;
 }
 
 @keyframes animate {

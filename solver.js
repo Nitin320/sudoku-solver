@@ -82,8 +82,6 @@ function makeBoard () {
 
         funcId("board").children[i].addEventListener("click", async function () {
 
-            
-
             const numid = parseInt(funcId("board").children[i].id) + 1
 
             if(numid%9 != 0) {
@@ -106,16 +104,17 @@ function makeBoard () {
             }
 
             if(checkDuplicates(board, parseInt(numToAdd), finalIndexes) == false){
-            
-                if(fault1 == 1) {warning1.style.animation = "animate 5s forwards"; warning1.style.opacity = 1; fault1=0;}
-                if(fault2 == 1) {warning2.style.animation = "animate 5s forwards"; warning2.style.opacity = 1; fault2=0;}
-                if(fault3 == 1) {warning3.style.animation = "animate 5s forwards"; warning3.style.opacity = 1; fault3=0;}
 
-                await sleep2();
+                funcId('warning1').classList.remove('warn1anim');
+                funcId('warning2').classList.remove('warn2anim');
+                funcId('warning3').classList.remove('warn3anim');
+
+                await sleep1();
                 
-                warning1.style.removeProperty('animation'); warning1.style.opacity = 0;
-                warning2.style.removeProperty('animation'); warning2.style.opacity = 0;
-                warning3.style.removeProperty('animation'); warning3.style.opacity = 0;
+                if(fault1 == 1) {funcId('warning1').classList.add('warn1anim'); fault1=0;}
+                if(fault2 == 1) {funcId('warning2').classList.add('warn2anim'); fault2=0;}
+                if(fault3 == 1) {funcId('warning3').classList.add('warn3anim'); fault3=0;}
+
 
             }
 
@@ -158,9 +157,6 @@ var finalInd;
 function sleep1() {
     return new Promise(resolve => setTimeout(resolve, 10));
 }
-function sleep2() {
-    return new Promise(resolve => setTimeout(resolve, 5000));
-}
 
 
 async function solve () {
@@ -179,7 +175,7 @@ async function solve () {
             board[empty[0]][empty[1]] = i;
             finalInd = (empty[0]*9) + empty[1];
 
-            await sleep()
+            await sleep1()
             funcId("board").children[finalInd].innerHTML = i;
 
             if(await solve()) {
@@ -187,7 +183,7 @@ async function solve () {
                 return true;
             }
 
-            await sleep()
+            await sleep1()
 
             board[empty[0]][empty[1]] = 0;
             
