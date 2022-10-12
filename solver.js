@@ -47,8 +47,7 @@ function start () {
     canSelect = false;
     startsolver.style.display = 'none';
     numbers.style.display = 'block';
-    body.style.overflowY = 'scroll';
-    heading.style.marginRight = '7vw';
+    heading.style.marginLeft = '1.5vw';
     makeBoard();
 }
 
@@ -70,14 +69,17 @@ function makeBoard () {
         square.classList.add("square");
         square.id = idnum
 
+        if(i>=0 && i<9) {square.classList.add("borderUp");}
 
-        if((id>17 && id<27) || (id>44 && id<54)) {
-            square.classList.add("borderBottom");
-        }
+        if(i>=72 && i<=81) {square.classList.add("borderBottom");}
 
-        if((id+1) %9 == 3 || (id+1) %9 == 6) {
-            square.classList.add("borderRight");
-        }
+        if((i+1)%9 == 0) {square.classList.add("borderRight");}
+
+        if(i%9 == 0) {square.classList.add("borderLeft");}
+
+        if((id>17 && id<27) || (id>44 && id<54)) {square.classList.add("borderBottom");}
+
+        if((id+1) %9 == 3 || (id+1) %9 == 6) {square.classList.add("borderRight");}
 
         id++;
 
