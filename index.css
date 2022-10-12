@@ -14,6 +14,7 @@ body {
 
 .heading {
     font-size: 4vw;
+    padding-left: 1.5vw;
 }
 
 .startsolver {
@@ -32,7 +33,6 @@ body {
 
 .numbers {
     padding-top: 1vw;
-    display: none;
 }
 
 .numbers > p {

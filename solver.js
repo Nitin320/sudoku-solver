@@ -16,8 +16,8 @@ var allowed = true;
 
 window.onload = function () {
 
-    funcId("startsolver").addEventListener("click", start);
-    funcId("newBoard").addEventListener("click", start);
+    makeBoard();
+    funcId("newBoard").addEventListener("click", makeBoard);
 
     for(let i=0; i<9; i++){
         funcId("numbers").children[i].addEventListener("click", function () {
@@ -41,15 +41,6 @@ window.onload = function () {
 
 }
 
-
-
-function start () {
-    canSelect = false;
-    startsolver.style.display = 'none';
-    numbers.style.display = 'block';
-    heading.style.marginLeft = '1.5vw';
-    makeBoard();
-}
 
 var index1;
 var index2;
