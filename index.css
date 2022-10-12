@@ -4,6 +4,12 @@
 }
 
 body {
+    background-image: url('board2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+
     padding-top: 4vh;
     padding-bottom: 15vw;
     display: flex;
@@ -14,7 +20,30 @@ body {
 
 .heading {
     font-size: 4vw;
-    padding-left: 1.5vw;
+    margin-right: 11vw;
+}
+
+.allWarnings{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 4vw;
+    margin-top: 1vw;
+    font-size: 2.8vw;
+}
+
+
+.warning1, .warning2, .warning3 {
+    flex: 1;
+    word-wrap: break-word;
+    opacity: 0;
+
+}
+
+@keyframes animate {
+    0% {opacity:0;}
+    50% {opacity:1;}
+    100% {opacity:0;}
 }
 
 .startsolver {
@@ -28,7 +57,7 @@ body {
 .active {
     display: flex;
     justify-content: center;
-    margin-right: 13vw;
+
 }
 
 .numbers {
@@ -47,6 +76,11 @@ body {
     text-align: center;
 }
 
+.nums:hover {
+    background-color: lightcoral;
+    cursor: pointer;
+}
+
 
 .board {
     padding-top: 5vh;
@@ -63,9 +97,14 @@ body {
     height: 3.4vw;
     font-size: 4vh;
     margin: 0;
-    border: 1px solid black;
+    border: 1.3px solid black;
     text-align: center;
     
+}
+
+.square:hover {
+    background-color: red;
+    cursor: pointer;
 }
 
 .borderBottom {
@@ -85,7 +124,7 @@ body {
 }
 
 .selected {
-    background-color: lightblue;
+    background-color: lightsalmon;
 }
 
 .mainButtons {
@@ -108,4 +147,8 @@ body {
     padding: 5px;
     border: 2px solid black;
     margin-right: 10vh;
+}
+
+.solver:hover, .newBoard:hover{
+    cursor: pointer;
 }

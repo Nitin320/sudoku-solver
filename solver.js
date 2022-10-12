@@ -25,6 +25,7 @@ window.onload = function () {
             if(this.classList.contains("selected")) {
 
                 this.classList.remove("selected");
+                numToAdd = undefined;
             }
             else {
 
@@ -44,6 +45,9 @@ window.onload = function () {
 
 var index1;
 var index2;
+var fault1 = 0;
+var fault2 = 0;
+var fault3 = 0;
 
 function makeBoard () {
 
@@ -76,7 +80,7 @@ function makeBoard () {
 
         funcId("board").appendChild(square);
 
-        funcId("board").children[i].addEventListener("click", function () {
+        funcId("board").children[i].addEventListener("click", async function () {
 
             
 
@@ -99,6 +103,20 @@ function makeBoard () {
 
                 if(numid%9 != 0) {board[Math.floor(numid/9)][(numid%9)-1] = parseInt(numToAdd);}
                 else {board[Math.floor((numid-1)/9)][8] = parseInt(numToAdd);}
+            }
+
+            if(checkDuplicates(board, parseInt(numToAdd), finalIndexes) == false){
+            
+                if(fault1 == 1) {warning1.style.animation = "animate 5s forwards"; warning1.style.opacity = 1; fault1=0;}
+                if(fault2 == 1) {warning2.style.animation = "animate 5s forwards"; warning2.style.opacity = 1; fault2=0;}
+                if(fault3 == 1) {warning3.style.animation = "animate 5s forwards"; warning3.style.opacity = 1; fault3=0;}
+
+                await sleep2();
+                
+                warning1.style.removeProperty('animation'); warning1.style.opacity = 0;
+                warning2.style.removeProperty('animation'); warning2.style.opacity = 0;
+                warning3.style.removeProperty('animation'); warning3.style.opacity = 0;
+
             }
 
             funcId("solver").addEventListener("click", solve);
@@ -135,11 +153,17 @@ function funcId(id) {
 
 // -------------------------------- MAIN SUDOKU SOLVER ----------------------------------------------
 
-var indexOfAnswer;
 var finalInd;
 
+function sleep1() {
+    return new Promise(resolve => setTimeout(resolve, 10));
+}
+function sleep2() {
+    return new Promise(resolve => setTimeout(resolve, 5000));
+}
 
-function solve () {
+
+async function solve () {
 
     allowed = false;
     var empty = findEmptySpace();
@@ -155,17 +179,21 @@ function solve () {
             board[empty[0]][empty[1]] = i;
             finalInd = (empty[0]*9) + empty[1];
 
-            indexOfAnswer = i;
-
+            await sleep()
             funcId("board").children[finalInd].innerHTML = i;
 
-            if(solve(board)) {
+            if(await solve()) {
+                console.log("HAPY")
                 return true;
             }
 
-            board[empty[0]][empty[1]] = 0;
+            await sleep()
 
+            board[empty[0]][empty[1]] = 0;
+            
             funcId("board").children[finalInd].innerHTML = 0;
+            
+            
         }
     }
 
@@ -178,12 +206,14 @@ function solve () {
 function checkDuplicates (board, num, empty) {
     for(let i=0; i<9; i++) {
         if(board[empty[0]][i] == num && empty[1] != i) {
+            fault1 = 1;
             return false;
         }
     }
 
     for(let i=0; i<9; i++) {
         if(board[i][empty[1]] == num && empty[0] != i) {
+            fault2 = 1;
             return false;
         }
     }
@@ -194,6 +224,7 @@ function checkDuplicates (board, num, empty) {
     for(let i=(y*3); i<(y*3)+3; i++) {
         for(let j=(x*3); j<(x*3)+3; j++) {
             if(board[i][j] == num && i != empty[0] && j != empty[1]) {
+                fault3 = 1;
                 return false;
             }
         }
