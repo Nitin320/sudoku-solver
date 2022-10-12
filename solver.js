@@ -164,7 +164,7 @@ function solve () {
 
             indexOfAnswer = i;
 
-            funcId("board").children[finalInd].innerHTML = i;  // NUMBERS ARE GETTING CHANGED IN THE BOARD FROM HERE
+            funcId("board").children[finalInd].innerHTML = i;
 
             if(solve(board)) {
                 return true;
@@ -172,7 +172,7 @@ function solve () {
 
             board[empty[0]][empty[1]] = 0;
 
-            funcId("board").children[finalInd].innerHTML = 0;  // NUMBERS ARE GETTING CHANGED IN THE BOARD FROM HERE
+            funcId("board").children[finalInd].innerHTML = 0;
         }
     }
 
