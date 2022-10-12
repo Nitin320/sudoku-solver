@@ -142,6 +142,10 @@ function clearOldBoard () {
         }
     }
 
+    fault1 = 0;
+    fault2 = 0;
+    fault3 = 0;
+
 }
 
 function funcId(id) {
