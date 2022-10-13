@@ -97,7 +97,7 @@ function makeBoard () {
             
             var finalIndexes = [index1, index2];
 
-            if(funcId("board").children[i].innerHTML != '' && numToAdd == 'del') {
+            if(funcId("board").children[i].innerHTML != '' && numToAdd == 'del' && delChecker == 0) {
 
                 funcId("board").children[i].innerHTML = ''; 
                 funcId("board").children[i].classList.remove("solveColour");
@@ -114,7 +114,7 @@ function makeBoard () {
                 if(numid%9 != 0) {board[Math.floor(numid/9)][(numid%9)-1] = parseInt(numToAdd);}
                 else {board[Math.floor((numid-1)/9)][8] = parseInt(numToAdd);}
             }
-            
+
             delChecker = 0;
 
             if(checkDuplicates(board, parseInt(numToAdd), finalIndexes) == false && isSolved == false){
@@ -180,7 +180,7 @@ function sleep1() {
 
 async function solve () {
 
-
+    delChecker = 1;
     var empty = findEmptySpace();
 
     if(!empty) {
