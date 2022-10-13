@@ -12,7 +12,7 @@ var board = [
 ];
 
 var numToAdd;
-var allowed = true;
+
 
 window.onload = function () {
 
@@ -48,6 +48,7 @@ var index2;
 var fault1 = 0;
 var fault2 = 0;
 var fault3 = 0;
+var isSolved = false;
 
 function makeBoard () {
 
@@ -95,7 +96,7 @@ function makeBoard () {
             
             var finalIndexes = [index1, index2];
 
-            if(allowed == true && checkDuplicates(board, parseInt(numToAdd), finalIndexes) == true && numToAdd != undefined) {
+            if(checkDuplicates(board, parseInt(numToAdd), finalIndexes) == true && numToAdd != undefined) {
 
                 funcId("board").children[i].innerHTML = numToAdd;
 
@@ -103,7 +104,7 @@ function makeBoard () {
                 else {board[Math.floor((numid-1)/9)][8] = parseInt(numToAdd);}
             }
 
-            if(checkDuplicates(board, parseInt(numToAdd), finalIndexes) == false){
+            if(checkDuplicates(board, parseInt(numToAdd), finalIndexes) == false && isSolved == false){
 
                 funcId('warning1').classList.remove('warn1anim');
                 funcId('warning2').classList.remove('warn2anim');
@@ -134,7 +135,7 @@ function clearOldBoard () {
         squares[i].remove();
     }
 
-    allowed = true;
+
     
     for(let i=0; i<9; i++) {
         for(let j=0; j<9; j++) {
@@ -145,6 +146,7 @@ function clearOldBoard () {
     fault1 = 0;
     fault2 = 0;
     fault3 = 0;
+    isSolved = false;
 
 }
 
@@ -159,16 +161,17 @@ function funcId(id) {
 var finalInd;
 
 function sleep1() {
-    return new Promise(resolve => setTimeout(resolve, 10));
+    return new Promise(resolve => setTimeout(resolve, 3));
 }
 
 
 async function solve () {
 
-    allowed = false;
+
     var empty = findEmptySpace();
 
     if(!empty) {
+        isSolved = true;
         return true;
     }
 

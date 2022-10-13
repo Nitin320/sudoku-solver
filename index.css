@@ -6,7 +6,7 @@
 body {
     background-image: url('board2.jpg');
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     width: 100%;
     height: 100%;
 
@@ -16,26 +16,32 @@ body {
     justify-content: center;
     text-align: center;
     overflow-y: hidden;
+    overflow-x: hidden;
+    margin-left: 4.5vw;
 }
 
 .heading {
     font-size: 4vw;
-    margin-right: 11vw;
+    margin-right: 9vw;
 }
 
 .allWarnings{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: 4vw;
-    margin-top: 1vw;
-    font-size: 2.8vw;
+    margin-left: 2vw;
+    margin-top: 3vw;
+    margin-right: 5vw;
+    font-size: 2.3vw;
+    flex: 0.7;
+    word-wrap: break-word;
 }
 
 
 .warning1, .warning2, .warning3 {
+    color: red;
+    font-weight: bold;
     flex: 1;
-    word-wrap: break-word;
     opacity: 0;
 }
 
@@ -47,14 +53,6 @@ body {
     0% {opacity:0;}
     50% {opacity:1;}
     100% {opacity:0;}
-}
-
-.startsolver {
-    font-size: 2em;
-    margin: 38vh 0;
-    border: 2px solid black;
-    border-radius: 15px;
-    padding: 10px;
 }
 
 .active {
@@ -86,7 +84,7 @@ body {
 
 
 .board {
-    padding-top: 5vh;
+    padding-top: 2.5vw;
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
@@ -106,7 +104,7 @@ body {
 }
 
 .square:hover {
-    background-color: red;
+    background-color: lightskyblue;
     cursor: pointer;
 }
 
@@ -135,21 +133,66 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex: 0.9;
 }
 
 .solver {
     font-size: 1.5vw;
     padding: 5px;
-    border: 2px solid black;
     margin-bottom: 5vw;
-    margin-right: 10vh;
+    margin-right: 5vw;
+    transition: 1s;
+    position: relative;
+    overflow: hidden;
+}
+
+.solver:before, .newBoard:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid lightcyan;
+    border-left: 2px solid lightcyan;
+    transition: 0.5s;
+}
+
+.solver:after, .newBoard:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 10px;
+    height: 10px;
+    border-bottom: 2px solid lightcyan;
+    border-right: 2px solid lightcyan;
+    transition: 0.5s;
+}
+
+.solver:hover:before, .newBoard:hover:before {
+    width: 100%;
+    height: 100%;
+}
+
+.solver:hover:after, .newBoard:hover:after {
+    width: 100%;
+    height: 100%;
+}
+
+.solver:hover, .newBoard:hover {
+    background-color: lightcyan;
+    color: black;
+    box-shadow: 0 0 50px lightcyan;
 }
 
 .newBoard {
     font-size: 1.5vw;
     padding: 5px;
-    border: 2px solid black;
-    margin-right: 10vh;
+    margin-right: 5vw;
+    transition: 1s;
+    position: relative;
+    overflow: hidden;
 }
 
 .solver:hover, .newBoard:hover{
