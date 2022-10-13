@@ -11,11 +11,9 @@ body {
     height: 100%;
 
     padding-top: 4vh;
-    padding-bottom: 15vw;
     display: flex;
     justify-content: center;
     text-align: center;
-    overflow-y: hidden;
     overflow-x: hidden;
     margin-left: 4.5vw;
 }
@@ -46,7 +44,7 @@ body {
 }
 
 .warn1anim, .warn2anim, .warn3anim {
-    animation: animate 5s forwards;
+    animation: animate 3s forwards;
 }
 
 @keyframes animate {
@@ -61,16 +59,13 @@ body {
 
 }
 
-.numbers {
-    padding-top: 1vw;
-}
 
 .numbers > p {
     padding-top: 0.5vh;
     flex: 1;
     border: 2px solid black;
-    width: 3vw;
-    height: 3vw;
+    width: 2.7vw;
+    height: 2.7vw;
     font-size: 3.8vh;
     border-radius: 20%;
     margin: 10px 0px 5px 50px;
@@ -106,6 +101,10 @@ body {
 .square:hover {
     background-color: lightskyblue;
     cursor: pointer;
+}
+
+.solveColour {
+    background-color: lightskyblue;
 }
 
 .borderBottom {

@@ -19,7 +19,7 @@ window.onload = function () {
     makeBoard();
     funcId("newBoard").addEventListener("click", makeBoard);
 
-    for(let i=0; i<9; i++){
+    for(let i=0; i<10; i++){
         funcId("numbers").children[i].addEventListener("click", function () {
             
             if(this.classList.contains("selected")) {
@@ -29,7 +29,7 @@ window.onload = function () {
             }
             else {
 
-                for(let i=0; i<9; i++) {
+                for(let i=0; i<10; i++) {
                     funcId("numbers").children[i].classList.remove("selected");
                 }
 
@@ -49,6 +49,7 @@ var fault1 = 0;
 var fault2 = 0;
 var fault3 = 0;
 var isSolved = false;
+var delChecker = 0;
 
 function makeBoard () {
 
@@ -96,13 +97,25 @@ function makeBoard () {
             
             var finalIndexes = [index1, index2];
 
-            if(checkDuplicates(board, parseInt(numToAdd), finalIndexes) == true && numToAdd != undefined) {
+            if(funcId("board").children[i].innerHTML != '' && numToAdd == 'del') {
+
+                funcId("board").children[i].innerHTML = ''; 
+                funcId("board").children[i].classList.remove("solveColour");
+                if(numid%9 != 0) {board[Math.floor(numid/9)][(numid%9)-1] = 0;}
+                else {board[Math.floor((numid-1)/9)][8] = 0;}
+                delChecker = 1;
+            }
+
+            if(checkDuplicates(board, parseInt(numToAdd), finalIndexes) == true && numToAdd != undefined && delChecker == 0) {
 
                 funcId("board").children[i].innerHTML = numToAdd;
+                funcId("board").children[i].classList.add("solveColour")
 
                 if(numid%9 != 0) {board[Math.floor(numid/9)][(numid%9)-1] = parseInt(numToAdd);}
                 else {board[Math.floor((numid-1)/9)][8] = parseInt(numToAdd);}
             }
+            
+            delChecker = 0;
 
             if(checkDuplicates(board, parseInt(numToAdd), finalIndexes) == false && isSolved == false){
 
@@ -182,18 +195,20 @@ async function solve () {
             board[empty[0]][empty[1]] = i;
             finalInd = (empty[0]*9) + empty[1];
 
+            funcId("board").children[finalInd].classList.remove("solveColour")
             await sleep1()
+            funcId("board").children[finalInd].classList.add("solveColour");
             funcId("board").children[finalInd].innerHTML = i;
 
             if(await solve()) {
-                console.log("HAPY")
                 return true;
             }
 
-            await sleep1()
-
             board[empty[0]][empty[1]] = 0;
-            
+
+            funcId("board").children[finalInd].classList.remove("solveColour")
+            await sleep1()
+            funcId("board").children[finalInd].classList.add("solveColour");
             funcId("board").children[finalInd].innerHTML = 0;
             
             
