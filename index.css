@@ -17,6 +17,7 @@ body {
     padding-top: 4vh;
     display: flex;
     justify-content: center;
+    align-items: center;
     text-align: center;
     overflow-x: hidden;
     margin-left: 4.5vw;
