@@ -16,6 +16,11 @@ var numToAdd;
 
 window.onload = function () {
 
+    funcId("cross").addEventListener("click", function () {
+        explanation.style.display = 'none';
+        main.style.opacity = 1;
+    })
+
     makeBoard();
     funcId("newBoard").addEventListener("click", makeBoard);
 
