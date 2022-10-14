@@ -150,7 +150,7 @@ body {
     overflow: hidden;
 }
 
-.solver:before, .newBoard:before {
+.solver:before, .newBoard:before, .speedup:before {
     content: '';
     position: absolute;
     left: 0;
@@ -162,7 +162,7 @@ body {
     transition: 0.5s;
 }
 
-.solver:after, .newBoard:after {
+.solver:after, .newBoard:after,.speedup:after {
     content: '';
     position: absolute;
     right: 0;
@@ -174,20 +174,34 @@ body {
     transition: 0.5s;
 }
 
-.solver:hover:before, .newBoard:hover:before {
+.solver:hover:before, .newBoard:hover:before, .speedup:hover:before {
     width: 100%;
     height: 100%;
 }
 
-.solver:hover:after, .newBoard:hover:after {
+.solver:hover:after, .newBoard:hover:after, .speedup:hover:after {
     width: 100%;
     height: 100%;
 }
 
-.solver:hover, .newBoard:hover {
+.solver:hover, .newBoard:hover, .speedup:hover {
     background-color: lightcyan;
     color: black;
     box-shadow: 0 0 50px lightcyan;
+}
+
+.solver:hover, .newBoard:hover, .speedup:hover{
+    cursor: pointer;
+}
+
+.speedup {
+    font-size: 1.5vw;
+    padding: 5px;
+    margin-bottom: 5vw;
+    margin-right: 5vw;
+    transition: 1s;
+    position: relative;
+    overflow: hidden;
 }
 
 .newBoard {
@@ -197,10 +211,6 @@ body {
     transition: 1s;
     position: relative;
     overflow: hidden;
-}
-
-.solver:hover, .newBoard:hover{
-    cursor: pointer;
 }
 
 

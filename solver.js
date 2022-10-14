@@ -132,7 +132,8 @@ function makeBoard () {
 
             }
 
-            funcId("solver").addEventListener("click", solve);
+            funcId("solver").addEventListener("click", solve1);
+            funcId("speedup").addEventListener("click", solve2);
 
         });
         
@@ -177,8 +178,7 @@ function sleep1() {
     return new Promise(resolve => setTimeout(resolve, 4));
 }
 
-
-async function solve () {
+async function solve1 () {
 
     delChecker = 1;
     var empty = findEmptySpace();
@@ -196,18 +196,18 @@ async function solve () {
             finalInd = (empty[0]*9) + empty[1];
 
             funcId("board").children[finalInd].classList.remove("solveColour")
-            await sleep1()
+            await sleep1();
             funcId("board").children[finalInd].classList.add("solveColour");
             funcId("board").children[finalInd].innerHTML = i;
 
-            if(await solve()) {
+            if(await solve1()) {
                 return true;
             }
 
             board[empty[0]][empty[1]] = 0;
 
             funcId("board").children[finalInd].classList.remove("solveColour")
-            await sleep1()
+            await sleep1();
             funcId("board").children[finalInd].classList.add("solveColour");
             funcId("board").children[finalInd].innerHTML = 0;
             
@@ -216,6 +216,46 @@ async function solve () {
     }
 
     funcId("board").children[0].innerHTML = board[0][0];
+    speedup = 0;
+    return false;
+
+}
+
+function solve2 () {
+
+    delChecker = 1;
+    var empty = findEmptySpace();
+
+    if(!empty) {
+        isSolved = true;
+        return true;
+    }
+
+    for(let i=1; i<10; i++) {
+
+        if(checkDuplicates(board, i, empty)) {
+
+            board[empty[0]][empty[1]] = i;
+            finalInd = (empty[0]*9) + empty[1];
+
+            funcId("board").children[finalInd].classList.add("solveColour");
+            funcId("board").children[finalInd].innerHTML = i;
+
+            if(solve2()) {
+                return true;
+            }
+
+            board[empty[0]][empty[1]] = 0;
+
+            funcId("board").children[finalInd].classList.add("solveColour");
+            funcId("board").children[finalInd].innerHTML = 0;
+            
+            
+        }
+    }
+
+    funcId("board").children[0].innerHTML = board[0][0];
+    speedup = 0;
     return false;
 
 }
