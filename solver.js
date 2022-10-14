@@ -174,7 +174,7 @@ function funcId(id) {
 var finalInd;
 
 function sleep1() {
-    return new Promise(resolve => setTimeout(resolve, 3));
+    return new Promise(resolve => setTimeout(resolve, 4));
 }
 
 
