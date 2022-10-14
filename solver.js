@@ -180,7 +180,7 @@ function funcId(id) {
 var finalInd;
 
 function sleep1() {
-    return new Promise(resolve => setTimeout(resolve, 50));
+    return new Promise(resolve => setTimeout(resolve, 25));
 }
 
 async function solve1 () {
