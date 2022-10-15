@@ -8,6 +8,11 @@
 }
 
 .explanation {
+
+    background-image: url('info-box.jpg');
+    background-size: cover;
+    background-repeat: repeat;
+
     padding: 20px;
     position: fixed;
     top: 50%;
@@ -18,6 +23,7 @@
     background-color: white;
     z-index: 10;
     max-width: 50%;
+    font-weight: bold;
 }
 
 .explanation-header {
